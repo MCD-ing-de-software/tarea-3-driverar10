@@ -57,6 +57,15 @@ class TestStatisticsUtils(unittest.TestCase):
         - Verificar que el resultado tiene la forma (shape) esperada (usar self.assertEqual para comparar tuplas de .shape - comparación simple, unittest es suficiente)
         """
 
+        arr = np.array([1, 2, 3, 4])
+        window_size = 2
+        expected = np.array([1.5, 2.5, 3.5])
+
+        result = StatisticsUtils.moving_average(arr, window_size)
+
+        npt.assert_allclose(result, expected, rtol=1e-7, atol=1e-7)
+        self.assertEqual(result.shape, expected.shape)
+
     def test_moving_average_raises_for_invalid_window(self):
         """Test que verifica que el método moving_average lanza un ValueError cuando
         se proporciona una ventana (window) inválida.
