@@ -42,3 +42,7 @@ pytest
 ```
 
 This will discover and execute all tests under the `tests/` directory.
+
+## Información estudiante
+
+Nombre del estudiante: Daniel Rivera Rojas - MCD
