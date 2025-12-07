@@ -127,6 +127,27 @@ class TestDataCleaner(unittest.TestCase):
         - Verificar que las columnas no especificadas (ej: "city") permanecen sin cambios (si comparas Series completas, usar pandas.testing.assert_series_equal() ya que maneja mejor los índices y tipos de Pandas; si comparas valores individuales, self.assertEqual es suficiente)
         """
 
+        cleaner = DataCleaner()
+        df = make_sample_df()
+        original = df.copy(deep=True)
+
+        result = cleaner.trim_strings(df, columns=["name"])
+
+        self.assertEqual(df.loc[0, "name"], " Alice ")
+        self.assertEqual(df.loc[1, "name"], "Bob")
+        self.assertIsNone(df.loc[2, "name"])
+        self.assertEqual(df.loc[3, "name"], " Carol  ")
+        pdt.assert_series_equal(df["age"], original["age"])
+        pdt.assert_series_equal(df["city"], original["city"])
+
+        self.assertEqual(result.loc[0, "name"], "Alice")
+        self.assertEqual(result.loc[1, "name"], "Bob")
+        self.assertIsNone(result.loc[2, "name"])
+        self.assertEqual(result.loc[3, "name"], "Carol")
+
+        pdt.assert_series_equal(result["age"], original["age"])
+        pdt.assert_series_equal(result["city"], original["city"])
+
     def test_trim_strings_raises_typeerror_for_non_string_column(self):
         """Test que verifica que el método trim_strings lanza un TypeError cuando
         se llama con una columna que no es de tipo string.
