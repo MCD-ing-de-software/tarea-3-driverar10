@@ -106,6 +106,12 @@ class TestDataCleaner(unittest.TestCase):
         - Verificar que se lanza un KeyError (usar self.assertRaises)
         """
 
+        cleaner = DataCleaner()
+        df = make_sample_df()
+
+        with self.assertRaises(KeyError):
+            cleaner.drop_invalid_rows(df, columns=["does_not_exist"])
+
     def test_trim_strings_strips_whitespace_without_changing_other_columns(
         self,
     ):
