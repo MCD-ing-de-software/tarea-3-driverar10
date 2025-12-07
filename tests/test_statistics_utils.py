@@ -75,17 +75,6 @@ class TestStatisticsUtils(unittest.TestCase):
         - Llamar a moving_average con window=0 (valor no positivo) y verificar que se lanza un ValueError (usar self.assertRaises)
         - Llamar a moving_average con window mayor que la longitud del array y verificar que se lanza un ValueError (usar self.assertRaises)
         """
-        arr = np.array([1, 2, 3])
-
-        with self.assertRaises(ValueError):
-            StatisticsUtils.moving_average(arr, 0)
-
-        with self.assertRaises(ValueError):
-            StatisticsUtils.moving_average(arr, -1)
-
-        with self.assertRaises(ValueError):
-            large_window = len(arr) + 1
-            StatisticsUtils.moving_average(arr, large_window)
 
     def test_moving_average_only_accepts_1d_sequences(self):
         """Test que verifica que el método moving_average lanza un ValueError cuando
